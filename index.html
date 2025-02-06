@@ -16,11 +16,16 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 50vh;
         }
 
         h1 {
             font-size: 3rem;
-            margin-top: 50px;
+            margin-top: 20px;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
 
@@ -30,6 +35,7 @@
             justify-content: center;
             gap: 20px;
             margin-top: 40px;
+            flex-wrap: wrap;
         }
 
         /* 🎀 Pretty Buttons */
@@ -85,13 +91,19 @@
         /* 🐱 Centered hidden cat gifs */
         .cat-gif {
             position: fixed;
-            top: 50%;
+            top: 65%;
             left: 50%;
             transform: translate(-50%, -50%);
             display: none;
-            width: 20%;
+            width: 30%;
         }
 
+        /* 📱 Responsive GIF size */
+        @media (max-width: 768px) {
+            .cat-gif {
+                width: 50%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -107,26 +119,29 @@
     <div id="cat_gif" class="cat-gif">
         <div class="tenor-gif-embed" data-postid="6540808372197226742" data-share-method="host" data-aspect-ratio="1" data-width="100%">
             <a href="https://tenor.com/view/yippee-cat-kitty-gif-6540808372197226742">Yippee Cat Kitty GIF</a>
-            from <a href="https://tenor.com/search/yippee+cat-gifs">Yippee Cat GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
     </div>
 
     <!-- Suspicious Cat GIF (Appears on No) -->
     <div id="suspicious_cat_gif" class="cat-gif">
         <div class="tenor-gif-embed" data-postid="25056802" data-share-method="host" data-aspect-ratio="1" data-width="100%">
             <a href="https://tenor.com/view/cat-gif-25056802">Cat GIF</a>from <a href="https://tenor.com/search/cat-gifs">Cat GIFs</a>
-        </div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
     </div>
 
     <script>
         $(document).ready(function() {
             // No button effect: Increase size + suspicious cat GIF + poop confetti
             $('#no_b').click(function() {
-                
                 $('#cat_gif').fadeOut(500);
 
                 let b_size = parseInt($(this).css('font-size'));
-                
-                if (b_size < 100) {
+                let screenWidth = $(window).width(); // Get screen width
+                let maxSize = screenWidth * 0.1; // 15% of screen width
+
+                if (b_size < maxSize) {
                     // Increase button size normally
                     $(this).css('font-size', b_size * 1.5 + 'px');
                 } else {
@@ -138,10 +153,10 @@
                         let emoji = document.createElement('div');
                         emoji.classList.add('emoji-confetti');
                         emoji.innerHTML = poopEmojis[Math.floor(Math.random() * poopEmojis.length)];
-                        
+
                         // Random positioning
                         emoji.style.left = Math.random() * window.innerWidth + 'px';
-                        emoji.style.top = '-50px'; 
+                        emoji.style.top = '-50px';
 
                         // Random animation duration
                         emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
@@ -172,10 +187,10 @@
                     let emoji = document.createElement('div');
                     emoji.classList.add('emoji-confetti');
                     emoji.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-                    
+
                     // Random positioning
                     emoji.style.left = Math.random() * window.innerWidth + 'px';
-                    emoji.style.top = '-50px'; 
+                    emoji.style.top = '-50px';
 
                     // Random animation duration
                     emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
